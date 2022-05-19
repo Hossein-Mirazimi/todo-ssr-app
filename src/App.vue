@@ -1,13 +1,19 @@
+<template>
+  <div class="text-center">
+    <router-view />
+  </div>
+</template>
+
 <script setup lang="ts">
-import { computed, reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { useHead } from '@vueuse/head'
 
 const siteData = reactive({
-  title: 'My website',
-  description: 'My beautiful website',
+  title: 'Tsk, just tasks',
+  description: 'Tsks is a task manager made simply to manage and keep track of everyday tasks with a modern and simple interface.',
 })
 useHead({
-  title: computed(() => siteData.title),
+  title: siteData.title,
   meta: [
     {
       name: 'description',
@@ -16,26 +22,3 @@ useHead({
   ],
 })
 </script>
-
-<template>
-  <div class="text-center">
-    <router-link to="/">
-      Home
-    </router-link> |
-    <router-link to="/user">
-      User
-    </router-link> |
-    <router-link to="/user/xxx">
-      User - xxx
-    </router-link> |
-    <router-link to="/deep/post">
-      Deep post
-    </router-link> |
-    <router-link to="/about">
-      About
-    </router-link>
-    <div class="m-6">
-      <router-view />
-    </div>
-  </div>
-</template>
