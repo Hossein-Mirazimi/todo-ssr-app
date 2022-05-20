@@ -31,7 +31,7 @@ export default defineComponent({
 
     return {
       layoutComponent(path: string) {
-        if (path.includes('/auth/')) return AuthLayout;
+        if (path.includes('/auth/')) return AuthLayout
         return 'div'
       },
     }

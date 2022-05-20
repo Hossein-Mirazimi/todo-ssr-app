@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@vueuse/head": "^0.5.1",
+    "html-minifier": "^4.0.0",
     "vite-pages": "^0.1.2",
     "vue": "^3.0.11",
     "vue-router": "^4.0.6"
@@ -22,6 +23,7 @@
     "@iconify/json": "^1.1.334",
     "@types/compression": "^1.7.0",
     "@types/express": "^4.17.11",
+    "@types/html-minifier": "^4.0.2",
     "@types/node": "^15.0.1",
     "@vitejs/plugin-vue": "^1.2.2",
     "@vue/compiler-sfc": "^3.0.11",
