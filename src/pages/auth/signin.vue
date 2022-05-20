@@ -208,3 +208,22 @@
     </router-link>
   </section>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { useHead } from '@vueuse/head'
+
+export default defineComponent({
+  setup() {
+    useHead({
+      title: 'Sign in - Tsks',
+      meta: [
+        {
+          name: 'description',
+          content: 'Tsks is a task manager made simply to manage and keep track of everyday tasks with a modern and simple interface.',
+        },
+      ],
+    })
+  },
+})
+</script>

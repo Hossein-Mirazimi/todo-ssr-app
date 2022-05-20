@@ -117,7 +117,7 @@ import { useHead } from '@vueuse/head'
 export default defineComponent({
   setup() {
     useHead({
-      title: 'Sign up - Tsk',
+      title: 'Sign up - Tsks',
       meta: [
         {
           name: 'description',
