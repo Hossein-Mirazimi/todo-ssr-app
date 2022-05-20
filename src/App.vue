@@ -1,7 +1,18 @@
+<template>
+  <router-view v-slot="{ Component, route }">
+    <transition name="fade">
+      <component :is="layoutComponent(route.fullPath)">
+        <component :is="Component" />
+      </component>
+    </transition>
+  </router-view>
+</template>
+
 <script lang="ts">
-import { reactive, computed, h, defineComponent } from 'vue'
+import { reactive, computed, defineComponent } from 'vue'
 import { useHead } from '@vueuse/head'
-import { RouterView } from 'vue-router'
+import AuthLayout from './layouts/auth.vue'
+
 export default defineComponent({
   setup() {
     const siteData = reactive({
@@ -18,7 +29,12 @@ export default defineComponent({
       ],
     })
 
-    return () => h(RouterView)
+    return {
+      layoutComponent(path: string) {
+        if (path.includes('/auth/')) return AuthLayout;
+        return 'div'
+      },
+    }
   },
 })
 
