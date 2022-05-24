@@ -11,17 +11,79 @@
           </router-link>
         </div>
         <div class="flex items-center">
-          <router-link class="sign-in-btn" to="/auth/signin">
-            Sign in
-          </router-link>
-          <router-link class="sign-up" to="/auth/signup">
-            Sign up
-          </router-link>
+          <template v-if="!isLoggin">
+            <router-link class="sign-in-btn" to="/auth/signin">
+              Sign in
+            </router-link>
+            <router-link class="sign-up" to="/auth/signup">
+              Sign up
+            </router-link>
+          </template>
+          <div v-else class="relative inline-block text-left">
+            <button class="rounded-full default-focus" @click="isShowed = !isShowed">
+              <Avatar bg="#444457" w="35px" h="35px" src="https://i.pravatar.cc/150?img=36" />
+            </button>
+
+            <div
+              class="origin-top-right absolute right-0 z-20 mt-2 w-56 rounded-md shadow-lg bg-secondary-background ring-1 ring-black ring-opacity-5 divide-y divide-primary-background"
+              :class="isShowed ? 'visible' : 'invisible'"
+              role="menu"
+              aria-orientation="vertical"
+              aria-labelledby="options-menu"
+            >
+              <div class="py-1">
+                <p
+                  class="block px-4 pt-2 pb-1 text-sm text-gray-200"
+                  role="menuitem"
+                >
+                  Signed in as
+                </p>
+                <p
+                  class="inline-flex items-start px-4 pb-2 text-sm font-semibold text-gray-200 just"
+                  role="menuitem"
+                >
+                  Hossein Mirazimi
+                  <span class="px-1 ml-2 font-normal tracking-wide text-purple-100 uppercase rounded-md bg-primary-default border-primary-default border-1 bg-opacity-60 text-xxs">
+                    Admin
+                  </span>
+                </p>
+              </div>
+              <div class="py-1">
+                <a
+                  href="#"
+                  class="block px-4 py-2 text-sm text-gray-500 pointer-events-none hover:bg-secondary-card"
+                  role="menuitem"
+                >
+                  Account settings
+                </a>
+              </div>
+              <div class="py-1">
+                <button
+                  class="block w-full px-4 py-2 text-sm text-left text-gray-200 hover:bg-secondary-card"
+                  role="menuitem"
+                >
+                  Sign out
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </nav>
     </div>
   </header>
 </template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  setup() {
+    const isShowed = ref(false)
+
+    return { isShowed, isLoggin: false }
+  },
+})
+</script>
 
 <style lang="scss">
 header {
