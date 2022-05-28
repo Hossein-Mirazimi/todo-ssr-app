@@ -1,6 +1,4 @@
 <template>
-  <DashboardHeader class="md:visible invisible" />
-  <DashboardHeaderMobile class="visible md:invisible" />
   <main class="flex flex-col items-center pb-40 text-white">
     <section class="mt-14 w-full max-w-screen-md px-5">
       <h1 class="text-3xl font-bold">

@@ -12,6 +12,7 @@
 import { reactive, computed, defineComponent } from 'vue'
 import { useHead } from '@vueuse/head'
 import AuthLayout from './layouts/auth.vue'
+import DashboardLayout from './layouts/dashboard.vue'
 
 export default defineComponent({
   setup() {
@@ -32,6 +33,7 @@ export default defineComponent({
     return {
       layoutComponent(path: string) {
         if (path.includes('/auth/')) return AuthLayout
+        else if (path.includes('/app')) return DashboardLayout
         return 'div'
       },
     }
