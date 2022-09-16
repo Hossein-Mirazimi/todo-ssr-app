@@ -4,7 +4,7 @@ import express from 'express'
 import { ViteDevServer } from 'vite'
 
 const isTest = process.env.NODE_ENV === 'test' || !!process.env.VITE_TEST_BUILD
-
+const PORT = process.env.PORT || 3000
 async function createServer(
   root = process.cwd(),
   isProd = process.env.NODE_ENV === 'production',
@@ -85,8 +85,8 @@ async function createServer(
 
 if (!isTest) {
   createServer().then(({ app }) =>
-    app.listen(3000, () => {
-      console.log('🚀  Server listening on http://localhost:3000')
+    app.listen(PORT, () => {
+      console.log(`🚀  Server listening on http://localhost:${PORT}`)
     }),
   )
 }
