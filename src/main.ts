@@ -3,6 +3,7 @@ import './main.scss'
 
 import { createSSRApp } from 'vue'
 import { createHead } from '@vueuse/head'
+import { createPinia } from 'pinia'
 import { createRouter } from './router'
 import App from './App.vue'
 
@@ -13,9 +14,11 @@ export function createApp() {
   const app = createSSRApp(App)
   const head = createHead()
   const router = createRouter()
+  const pinia = createPinia()
 
   app.use(head)
   app.use(router)
+  app.use(pinia)
 
   return { app, router, head }
 }
