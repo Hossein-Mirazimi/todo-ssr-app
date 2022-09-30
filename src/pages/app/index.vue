@@ -42,7 +42,6 @@ const router = useRouter()
 const auth = useAuth()
 
 onMounted(() => {
-  console.log('user', auth.getUser)
   !auth.getUser && router.push('/auth/signin')
 })
 </script>

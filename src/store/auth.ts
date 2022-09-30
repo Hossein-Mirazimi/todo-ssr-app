@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, reactive, ref } from 'vue'
 
-const defaultAvatar = '../assets/img/tsks-logo-w-type.svg'
+const defaultAvatar = 'https://i.pravatar.cc/150?img=36'
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -38,7 +38,7 @@ export const useAuth = defineStore('auth', () => {
   const user = reactive<User | EmptyObj>({
     password: 'admin',
     role: 'admin',
-    name: 'user',
+    name: 'Hossein Mirazimi',
     avatar: defaultAvatar,
   })
 

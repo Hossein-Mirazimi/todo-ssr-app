@@ -23,8 +23,8 @@
         </nav>
       </div>
       <div class="relative inline-block text-left">
-        <button @click="isShow = !isShow" class="rounded-full default-focus">
-          <Avatar src="https://i.pravatar.cc/150?img=36" w="35px" h="35px"/>
+        <button class="rounded-full default-focus" @click="isShow = !isShow">
+          <Avatar :src="getUser.avatar" w="35px" h="35px" />
         </button>
         <div
           class="origin-top-right absolute right-0 z-20 mt-2 w-56 rounded-md shadow-lg bg-secondary-background ring-1 ring-black ring-opacity-5 divide-y divide-primary-background"
@@ -38,9 +38,9 @@
               Signed in as
             </p>
             <p class="inline-flex items-start px-4 pb-2 text-sm font-semibold text-gray-200 just" role="menuitem">
-              Hossein Mirazimi
+              {{ getUser.name }}
               <span class="px-1 ml-2 font-normal tracking-wide text-purple-100 uppercase rounded-md bg-primary-default border-primary-default border-1 bg-opacity-60 text-xxs">
-                Admin
+                {{ getUser.role.toUpperCase() }}
               </span>
             </p>
           </div>
@@ -67,15 +67,11 @@
   </header>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { useAuth } from '../store/auth'
 
-export default defineComponent({
-  setup() {
-    const isShow = ref(false)
-    return {
-      isShow,
-    }
-  },
-})
+const { getUser } = useAuth()
+
+const isShow = ref(false)
 </script>
