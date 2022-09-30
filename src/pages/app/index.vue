@@ -5,7 +5,11 @@
         Collections
       </h1>
       <div class="grid items-start grid-cols-1 gap-4 mt-10 md:grid-cols-2">
-        <CollectionCard />
+        <CollectionCard
+          v-for="collection in getCollections"
+          :key="collection.id"
+          :collection="collection"
+        />
         <!-- Add Collection Button -->
         <button
           class="flex flex-row items-center justify-center px-6 py-3 font-medium text-white transition-colors duration-200 ease-in-out bg-transparent default-focus hover:bg-hover-card rounded-2xl border-hover-card border-3 focus:outline-none"
@@ -35,11 +39,13 @@ import { useHead } from '@vueuse/head'
 import { useRouter } from 'vue-router'
 
 import { useAuth } from '../../store/auth'
+import { useTodoStore } from '../../store/todo'
 
 useHead({ title: 'Dashboard - Tsks.' })
 
 const router = useRouter()
 const auth = useAuth()
+const { getCollections } = useTodoStore()
 
 onMounted(() => {
   !auth.getUser && router.push('/auth/signin')

@@ -1,7 +1,7 @@
 <template>
   <router-link
     class="no-underline group default-focus rounded-3xl"
-    :to="`/app/collections/${Math.floor(Math.random() * 10)}`"
+    :to="`/app/collections/${collection.id}`"
   >
     <div
       class="flex flex-row items-start p-6 break-all transition-all duration-200 ease-in-out group-hover:bg-hover-card rounded-3xl bg-primary-card"
@@ -26,9 +26,19 @@
         </svg>
       </div>
       <div class="ml-5">
-        <h2 class="text-xl font-semibold">test</h2>
-        <p class="mt-1 opacity-60">2 tasks</p>
+        <h2 class="text-xl font-semibold">
+          {{ collection.name }}
+        </h2>
+        <p class="mt-1 opacity-60">
+          2 tasks
+        </p>
       </div>
     </div>
   </router-link>
 </template>
+
+<script lang="ts" setup>
+import { defineProps } from 'vue'
+
+const { collection } = defineProps<{ collection: { id: string; name: string; tasks: any[]}}>()
+</script>
