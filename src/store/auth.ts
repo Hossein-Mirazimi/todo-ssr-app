@@ -49,22 +49,27 @@ export const useAuth = defineStore('auth', () => {
         return resolve(user)
       }
       isLoggedIn.value = false
-      return reject(new Error('Invalid username or password'))
+      return reject(new Error('Invalid email or password'))
     })
   }
 
-  const signUp = async({ email, password, name }: { email: string; password: string; name: string }) => {
+  const signUp = async({ email, password }: { email: string; password: string }) => {
     return await new Promise((resolve, reject) => {
       try {
         const isValid = isValidEmail(email)
         if (isValid) {
           _users[email] = {
             password,
-            name,
+            name: email.split('@')[0],
             role: 'user',
             avatar: defaultAvatar,
           }
+          isLoggedIn.value = true
+          Object.assign(user, { ..._users[email] })
+          return resolve(user)
         }
+        isLoggedIn.value = false
+        return reject(new Error('Invalid email or password'))
       }
       catch (err) {
         // @ts-ignore

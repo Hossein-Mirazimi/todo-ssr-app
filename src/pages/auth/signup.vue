@@ -47,12 +47,13 @@
     <p class="opacity-60 my-4 font-medium">
       or
     </p>
-    <form class="flex flex-col w-full">
+    <form class="flex flex-col w-full" @submit.prevent="signUp">
       <label for="email" class="hidden mt-4 mb-2 ml-2">
         Email
       </label>
       <input
         id="email"
+        v-model="email"
         required=""
         name="email"
         type="email"
@@ -67,6 +68,7 @@
       </label>
       <input
         id="password"
+        v-model="password"
         required=""
         minlength="6"
         name="password"
@@ -83,7 +85,9 @@
       </button>
     </form>
     <p class="text-gray-text mt-8">
-      Already have an account?&nbsp;<router-link class="text-white" to="/auth/signin">Sign in</router-link>
+      Already have an account?&nbsp;<router-link class="text-white" to="/auth/signin">
+        Sign in
+      </router-link>
     </p>
     <router-link
       class="text-gray-text flex items-center justify-center mt-6"
@@ -110,21 +114,40 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
 import { useHead } from '@vueuse/head'
+import { ref, unref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useAuth } from '../../store/auth'
 
-export default defineComponent({
-  setup() {
-    useHead({
-      title: 'Sign up - Tsks',
-      meta: [
-        {
-          name: 'description',
-          content: 'Tsks is a task manager made simply to manage and keep track of everyday tasks with a modern and simple interface.',
-        },
-      ],
-    })
-  },
+useHead({
+  title: 'Sign up - Tsks',
+  meta: [
+    {
+      name: 'description',
+      content: 'Tsks is a task manager made simply to manage and keep track of everyday tasks with a modern and simple interface.',
+    },
+  ],
 })
+
+const auth = useAuth()
+const router = useRouter()
+
+const email = ref(`test${Math.round(Math.random() * 100)}@gmail.com`)
+const password = ref(Math.round(Math.random() * 100000).toString())
+
+const isEmptyObject = (obj: any): boolean => Object.keys(obj).length <= 0
+
+const signUp = async() => {
+  const userData = {
+    email: unref(email),
+    password: unref(password),
+  }
+  await auth.signUp(userData).then(async(user) => {
+    !isEmptyObject(user) && await router.push('/app')
+  }).catch((err) => {
+    // eslint-disable-next-line no-alert
+    alert(err?.message || 'Email or Password is not valid')
+  })
+}
 </script>
