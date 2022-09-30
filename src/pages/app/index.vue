@@ -29,13 +29,20 @@
   </main>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup>
+import { onMounted } from 'vue'
 import { useHead } from '@vueuse/head'
+import { useRouter } from 'vue-router'
 
-export default defineComponent({
-  setup() {
-    useHead({ title: 'Dashboard - Tsks.' })
-  },
+import { useAuth } from '../../store/auth'
+
+useHead({ title: 'Dashboard - Tsks.' })
+
+const router = useRouter()
+const auth = useAuth()
+
+onMounted(() => {
+  console.log('user', auth.getUser)
+  !auth.getUser && router.push('/auth/signin')
 })
 </script>

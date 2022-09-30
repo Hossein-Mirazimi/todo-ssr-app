@@ -35,9 +35,14 @@ export const useAuth = defineStore('auth', () => {
     },
   })
 
-  const user = reactive<User | EmptyObj>({})
+  const user = reactive<User | EmptyObj>({
+    password: 'admin',
+    role: 'admin',
+    name: 'user',
+    avatar: defaultAvatar,
+  })
 
-  const getUser = computed(() => user)
+  const getUser = computed(() => Object.keys(user).length > 1 ? user : null)
 
   const signIn = async(email: string, password: string): Promise<User | EmptyObj> => {
     return await new Promise((resolve, reject) => {
