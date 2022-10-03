@@ -1,5 +1,5 @@
 <template>
-  <form class="css-0">
+  <form class="css-0" @submit.prevent="submit">
     <div role="group" class="chakra-form-control css-zn965q">
       <label
         id="field-6-label"
@@ -11,6 +11,7 @@
           style="padding: 10px;"
         >
           <button
+            type="submit"
             class="default-focus text-primary-background text-center flex justify-center items-center mr-3 text-base transition-colors duration-100 ease-in-out rounded-lg"
             style="height: 22px; width: 23px; border-color: rgb(51, 50, 35); background-color: rgb(51, 50, 35);"
           >
@@ -28,6 +29,7 @@
           </button>
           <input
             id="name"
+            v-model="taskName"
             class="w-full bg-transparent rounded-md outline-none"
             name="name"
             type="name"
@@ -39,3 +41,20 @@
     </div>
   </form>
 </template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  emits: ['sumbit-task'],
+  setup(_, { emit }) {
+    const taskName = ref('')
+    const submit = () => {
+      emit('sumbit-task', taskName.value)
+      taskName.value = ''
+    }
+    return { taskName, submit }
+  },
+})
+
+</script>

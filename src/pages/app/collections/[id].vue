@@ -1,9 +1,9 @@
 <template>
   <main class="flex flex-col items-center pb-40 text-white">
-    <div class="w-full max-w-screen-md px-5 mt-14">
+    <div v-if="taskLoading" class="w-full max-w-screen-md px-5 mt-14">
       <TodoSkeleton />
     </div>
-    <div v-if="false" class="w-full max-w-screen-md px-5 mt-14">
+    <div v-else class="w-full max-w-screen-md px-5 mt-14">
       <!-- Header -->
       <div class="flex justify-between mb-12">
         <div class="flex items-center">
@@ -29,7 +29,9 @@
               ></path>
             </svg>
           </router-link>
-          <h1 class="ml-4 text-3xl font-bold">tt</h1>
+          <h1 class="ml-4 text-3xl font-bold">
+            tt
+          </h1>
         </div>
         <div class="relative flex text-left">
           <button
@@ -79,22 +81,47 @@
         </div>
       </div>
       <p class="mb-2 font-medium text-white">
-        Tasks - 1
+        Tasks - {{ tasks.length }}
       </p>
       <div>
         <div class="py-2">
-          <TodoItem v-for="n in Math.floor(Math.random() * 3)" :key="n" class="mb-2 last:mb-0" />
+          <TodoItem v-for="task in tasks" :key="task.id" :task="task" class="mb-2 last:mb-0" />
         </div>
       </div>
-      <TodoInput />
+      <TodoInput @sumbit-task="task => addNewTask(task, collectionId)" />
       <p class="mt-10 mb-2 font-medium text-white">
-        Completed - 1
+        Completed - {{ taskCompleted.length }}
       </p>
       <div>
         <div class="py-2">
-          <TodoItem v-for="n in Math.floor(Math.random() * 3)" :key="n" is-completed class="mb-2 last:mb-0" />
+          <TodoItem v-for="(task, i) in taskCompleted" :key="`task_${i}_${task.id}`" :task="task" class="mb-2 last:mb-0" />
         </div>
       </div>
     </div>
   </main>
 </template>
+
+<script lang="ts" setup>
+import { computed, ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
+import { useTodoStore } from '../../../store/todo'
+
+const route = useRoute()
+const {
+  addNewTask,
+  getTodoTaskFromCollection,
+  getCompletedTaskFromCollection,
+} = useTodoStore()
+
+const collectionId = route.params.id as string
+const taskLoading = ref(true)
+
+const tasks = computed(() => getTodoTaskFromCollection(collectionId))
+
+const taskCompleted = computed(() => getCompletedTaskFromCollection(collectionId))
+
+onMounted(() => {
+  setTimeout(() => taskLoading.value = false, 2000)
+})
+
+</script>

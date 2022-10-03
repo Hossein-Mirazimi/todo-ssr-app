@@ -1,17 +1,16 @@
 <template>
   <div class="relative flex items-center justify-start p-3 group rounded-2xl bg-primary-card">
     <button
-      v-if="!isCompleted"
+      v-if="!task.isCompleted"
       class="default-focus border-3 focus:outline-none bg-opacity-0 hover:bg-opacity-40 px-2 py-2 transition-colors duration-100 ease-in-out rounded-lg"
       style="border-color: rgb(255, 255, 255);"
-      @click="isCompleted = true"
+      @click="updateIsCompleteTask(task.id)"
     ></button>
     <button
       v-else
       class="default-focus text-primary-background hover:bg-opacity-50 focus:outline-none flex justify-center items-center transition-colors duration-100 ease-in-out rounded-lg"
-      style="height:22px;width:22px;border-color:rgb(255, 255, 51);background-color:rgb(255, 255, 51);"
-      data-v-91ec745a=""
-      @click="isCompleted = false"
+      style="height:22px;min-width:22px;border-color:rgb(255, 255, 51);background-color:rgb(255, 255, 51);"
+      @click="updateIsCompleteTask(task.id)"
     >
       <svg
         stroke="currentColor"
@@ -26,8 +25,8 @@
         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" data-v-91ec745a=""></path>
       </svg>
     </button>
-    <p class="pr-8 ml-3 text-white" :class="{'line-through': isCompleted}">
-      {{ randomTodo }}
+    <p class="pr-8 ml-3 text-white" :class="{'line-through': task.isCompleted}">
+      {{ task.name }}
     </p>
     <div class="focus:outline-none absolute right-0 mr-2 rounded-lg">
       <div class="relative flex text-left">
@@ -59,7 +58,7 @@
           aria-orientation="vertical"
           aria-labelledby="options-menu"
         >
-          <div v-if="!isCompleted" class="py-1">
+          <div v-if="!task.isCompleted" class="py-1">
             <button
               class="default-focus hover:bg-secondary-card flex w-full px-4 py-2 text-sm text-left text-gray-200"
               role="menuitem"
@@ -73,6 +72,7 @@
             <button
               class="default-focus hover:bg-secondary-card block w-full px-4 py-2 text-sm text-left text-gray-200"
               role="menuitem"
+              @click="removeTask"
             >
               Delete
             </button>
@@ -83,23 +83,19 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script lang="ts" setup>
+import { defineProps, ref } from 'vue'
+import type { Task } from '../store/todo'
+import { useTodoStore } from '../store/todo'
 
-export default defineComponent({
-  props: {
-    isCompleted: {
-      type: Boolean,
-      default: Boolean(Math.floor(Math.random())),
-    },
-  },
-  setup() {
-    const showMenu = ref(false)
-    const todosTitle = ['delectus aut autem', 'fugiat veniam minus', 'laboriosam mollitia et enim quasi adipisci quia provident illum']
-    return {
-      showMenu,
-      randomTodo: todosTitle[Math.floor(Math.random() * todosTitle.length)],
-    }
-  },
-})
+const { task } = defineProps<{ task: Task }>()
+
+const { updateIsCompleteTask, removeTaskFromCollection } = useTodoStore()
+
+const showMenu = ref(false)
+
+const removeTask = () => {
+  removeTaskFromCollection(task.id)
+  showMenu.value = false
+}
 </script>

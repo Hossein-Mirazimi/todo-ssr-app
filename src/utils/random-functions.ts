@@ -22,5 +22,5 @@ export const sentence = () => {
   //                var i = randGen();
   const content = `The ${adjectives[rand1]} ${nouns[rand2]} ${adverbs[rand3]} ${verbs[rand4]} because some ${nouns[rand1]} ${adverbs[rand1]} ${verbs[rand1]} ${preposition[rand1]} a ${adjectives[rand2]} ${nouns[rand5]} which, became a ${adjectives[rand3]}, ${adjectives[rand4]} ${nouns[rand6]}.`
 
-  return `&quot;${content}&quot;`
+  return content
 }
