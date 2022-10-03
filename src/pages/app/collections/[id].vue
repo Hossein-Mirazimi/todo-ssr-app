@@ -85,16 +85,16 @@
       </p>
       <div>
         <div class="py-2">
-          <TodoItem v-for="task in tasks" :key="task.id" :task="task" class="mb-2 last:mb-0" />
+          <TodoItem v-for="task in tasks" :key="task.id" :theme="collectionTheme" :task="task" class="mb-2 last:mb-0" />
         </div>
       </div>
-      <TodoInput @sumbit-task="task => addNewTask(task, collectionId)" />
+      <TodoInput :theme="collectionTheme" @sumbit-task="task => addNewTask(task, collectionId)" />
       <p class="mt-10 mb-2 font-medium text-white">
         Completed - {{ taskCompleted.length }}
       </p>
       <div>
         <div class="py-2">
-          <TodoItem v-for="(task, i) in taskCompleted" :key="`task_${i}_${task.id}`" :task="task" class="mb-2 last:mb-0" />
+          <TodoItem v-for="(task, i) in taskCompleted" :key="`task_${i}_${task.id}`" :theme="collectionTheme" :task="task" class="mb-2 last:mb-0" />
         </div>
       </div>
     </div>
@@ -109,12 +109,17 @@ import { useTodoStore } from '../../../store/todo'
 const route = useRoute()
 const {
   addNewTask,
+  getCollection,
   getTodoTaskFromCollection,
   getCompletedTaskFromCollection,
 } = useTodoStore()
 
 const collectionId = route.params.id as string
 const taskLoading = ref(true)
+
+const collection = getCollection(collectionId)
+
+const collectionTheme = computed(() => collection?.theme)
 
 const tasks = computed(() => getTodoTaskFromCollection(collectionId))
 

@@ -9,7 +9,7 @@
     <button
       v-else
       class="default-focus text-primary-background hover:bg-opacity-50 focus:outline-none flex justify-center items-center transition-colors duration-100 ease-in-out rounded-lg"
-      style="height:22px;min-width:22px;border-color:rgb(255, 255, 51);background-color:rgb(255, 255, 51);"
+      :style="`height:22px;min-width:22px;border-color: ${theme};background-color: ${theme}`"
       @click="updateIsCompleteTask(task.id)"
     >
       <svg
@@ -88,7 +88,7 @@ import { defineProps, ref } from 'vue'
 import type { Task } from '../store/todo'
 import { useTodoStore } from '../store/todo'
 
-const { task } = defineProps<{ task: Task }>()
+const { task, theme } = defineProps<{ task: Task; theme: string }>()
 
 const { updateIsCompleteTask, removeTaskFromCollection } = useTodoStore()
 

@@ -13,7 +13,7 @@
           <button
             type="submit"
             class="default-focus text-primary-background text-center flex justify-center items-center mr-3 text-base transition-colors duration-100 ease-in-out rounded-lg"
-            style="height: 22px; width: 23px; border-color: rgb(51, 50, 35); background-color: rgb(51, 50, 35);"
+            :style="`height: 22px; width: 23px; border-color: ${theme}; background-color: ${theme}`"
           >
             <svg
               stroke="currentColor"
@@ -46,6 +46,12 @@
 import { defineComponent, ref } from 'vue'
 
 export default defineComponent({
+  props: {
+    theme: {
+      type: String,
+      default: 'rgb(51, 50, 35)',
+    },
+  },
   emits: ['sumbit-task'],
   setup(_, { emit }) {
     const taskName = ref('')

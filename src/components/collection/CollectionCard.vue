@@ -7,7 +7,7 @@
       class="flex flex-row items-start p-6 break-all transition-all duration-200 ease-in-out group-hover:bg-hover-card rounded-3xl bg-primary-card"
     >
       <!-- TODO: add custome background color here /n -->
-      <div class="rounded-2xl p-4 bg-primary-default">
+      <div class="rounded-2xl p-4" :style="{ 'backgroundColor': collection.theme}">
         <svg
           stroke="currentColor"
           fill="currentColor"
