@@ -30,7 +30,7 @@
           {{ collection.name }}
         </h2>
         <p class="mt-1 opacity-60">
-          2 tasks
+          {{ `${tasks.length} task${tasks.length > 1 ? 's' : ''}` }}
         </p>
       </div>
     </div>
@@ -38,7 +38,11 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps } from 'vue'
+import { computed, defineProps } from 'vue'
+import { useTodoStore } from '../../store/todo'
 
 const { collection } = defineProps<{ collection: { id: string; name: string; tasks: any[]}}>()
+const { getTaskFromCollection } = useTodoStore()
+
+const tasks = computed(() => getTaskFromCollection(collection.id))
 </script>
