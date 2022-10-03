@@ -218,6 +218,7 @@ import { ref, unref } from 'vue'
 import { useHead } from '@vueuse/head'
 import { useRouter } from 'vue-router'
 import { useAuth } from '../../store/auth'
+import { isEmptyObject } from '../../utils'
 
 useHead({
   title: 'Sign in - Tsks',
@@ -234,8 +235,6 @@ const auth = useAuth()
 
 const email = ref('admin@test.com')
 const password = ref('admin')
-
-const isEmptyObject = (obj: any): boolean => Object.keys(obj).length <= 0
 
 const signIn = async() => {
   await auth.signIn(unref(email), unref(password)).then(async(user) => {

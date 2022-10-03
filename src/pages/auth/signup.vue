@@ -119,6 +119,7 @@ import { useHead } from '@vueuse/head'
 import { ref, unref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuth } from '../../store/auth'
+import { isEmptyObject } from '../../utils'
 
 useHead({
   title: 'Sign up - Tsks',
@@ -135,8 +136,6 @@ const router = useRouter()
 
 const email = ref(`test${Math.round(Math.random() * 100)}@gmail.com`)
 const password = ref(Math.round(Math.random() * 100000).toString())
-
-const isEmptyObject = (obj: any): boolean => Object.keys(obj).length <= 0
 
 const signUp = async() => {
   const userData = {
