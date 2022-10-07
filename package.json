@@ -4,7 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "esno server",
-    "build": "run-p build:client build:server",
+    "build": "run-p build:client build:server build:serve",
+    "build:serve": "tsc server.ts --module commonjs --esModuleInterop",
     "build:client": "vite build --ssrManifest --outDir dist/client",
     "build:server": "vite build --ssr src/entry-server.ts --outDir dist/server",
     "generate": "vite build --ssrManifest --outDir dist/static && npm run build:server && esno prerender",
