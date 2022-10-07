@@ -5,6 +5,7 @@ import { createApp } from './main'
 
 export async function render(url: string, manifest: Record<string, string[]>) {
   const { app, router, head } = createApp()
+  console.log('req: ', url)
 
   // set the router to the desired URL before rendering
   router.push(url)
