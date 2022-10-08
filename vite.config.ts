@@ -27,10 +27,13 @@ const config: UserConfig = {
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png'],
+      devOptions: {
+        enabled: process.env.NODE_ENV !== 'production',
+      },
       manifest: {
         name: 'Tsk, just tasks',
         short_name: 'Tsk',
-        theme_color: '#FDB713',
+        theme_color: '#FC76A1',
         icons: [
           {
             src: '/favicon_x16.png',
