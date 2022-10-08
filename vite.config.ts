@@ -23,7 +23,7 @@ const config: UserConfig = {
       scale: 1.1,
       defaultStyle: 'vertical-align: middle;',
     }),
-    WindiCSS(),
+    WindiCSS({ transformCSS: true }),
   ],
   build: {
     minify: false,
