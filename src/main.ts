@@ -1,4 +1,4 @@
-import 'windi.css'
+import 'virtual:windi.css'
 import './main.scss'
 
 import { createSSRApp } from 'vue'
